@@ -1,9 +1,8 @@
-from os import plock
 import pandas as pd
 import matplotlib.pyplot as plt
-data = pd.read_csv("data.csv",sep=',',encoding="utf-8") #lee el documento
-print(data)
-print(data.head())
+data = pd.read_csv("data1.csv",sep=',',encoding="utf-8") #lee el documento
+# print(data)
+# print(data.head())
 def mostrar_casos_por_anio():
     #filtrar datos
     data_filtered = data[(data['Año de los casos'] >= 2017) & (data['Año de los casos'] <= 2022)]
@@ -18,8 +17,6 @@ def mostrar_casos_por_anio():
     #Grafico por Año
     casos_por_anio.plot(kind='bar',figsize=(8,6))
     for i, v in enumerate(casos_por_anio):
-        print('i ', i)
-        print('v ', v)
         plt.text(i, v + 1, f'{porcentajes["count"][i]:.2f}%', ha='center', color='black')
     # plt.figure(figsize=(8,6)) #tamanio de la figura
     plt.show()
@@ -52,12 +49,14 @@ def mostrar_casos_por_departamento():
 
 def mostrar_casos_por_edades():
     #Grafico barras por edades
-    casos_por_edad = data['Rango de edad de la victima'].value_counts().sort_index()
+    # casos_por_edad = data['Rango de edad de la victima'].value_counts().sort_index()
+    casos_por_edad = data['Rango de edad de la víctima'].value_counts().sort_index()
     casos_por_edad.plot(kind='bar',figsize=(12,6))
     plt.xlabel('Edad')
     plt.ylabel('Cantidad por las edades')
     plt.title('Cantidad de casos de violencia sexual por edades')
     plt.show()
+
 def mostrar_departamentos_por_anio():
     año = input("Ingrese el  año: ")
     data_filtered = data[data['Año de los casos'] == int(año)]
@@ -67,6 +66,7 @@ def mostrar_departamentos_por_anio():
     plt.ylabel('')
     plt.legend(casos_por_departamento.index, loc='best')
     plt.show()
+
 def mostrar_Casos_por_violencia():
     año = input("Ingrese el  año: ")
     mes = input("Ingrese el  mes: ")
@@ -78,17 +78,20 @@ def mostrar_Casos_por_violencia():
     plt.ylabel('')
     plt.legend(casos_por_tipo_violencia.index, loc='best') 
     plt.show()
+
 def mostrar_casos_por_etnica():
     año = input("Ingrese el  año: ")
     mes = input("Ingrese el  mes: ")
     departamento = input("Ingrese el departamento: ")
     data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    casos_por_autoidentificacion = data_filtered['Autoidentificación étnica'].value_counts()
+    # casos_por_autoidentificacion = data_filtered['Autoidentificación étnica'].value_counts()
+    casos_por_autoidentificacion = data_filtered['Autoidentificadores étnicos'].value_counts()
     plt.title(f'Casos de violencia sexual por autodentificacion etnica en {mes}/{año}, {departamento}')
     casos_por_autoidentificacion.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
     plt.ylabel('')
     plt.legend(casos_por_autoidentificacion.index, loc='best') 
     plt.show()
+
 def mostrar_por_accionesPreventivas():
     año = input("Ingrese el  año: ")
     mes = input("Ingrese el  mes: ")
@@ -100,12 +103,14 @@ def mostrar_por_accionesPreventivas():
     plt.ylabel('')
     plt.legend(acciones_preventivas.index, loc='best') 
     plt.show()
+
 def mostrar_por_centras_masUtilizados():
     año = input("Ingrese el  año: ")
     mes = input("Ingrese el  mes: ")
     departamento = input("Ingrese el departamento: ")
     data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    centros_mas_utilizados = data_filtered['Centros más utilizados'].value_counts()
+    # centros_mas_utilizados = data_filtered['Centros más utilizados'].value_counts()
+    centros_mas_utilizados = data_filtered['Centro utilizado'].value_counts()
     plt.title(f'Centros mas utilizados en casos de violencia sexual en {mes}/{año}, {departamento}')
     centros_mas_utilizados.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
     plt.ylabel('')
