@@ -118,38 +118,73 @@ def mostrar_por_centras_masUtilizados():
     plt.show()
 
 #Menu
-while True:
-    print("- - - - -Menu- - - - -")
-    print("1. Mostrar casos por año")
-    print("2. Mostrar casos por mes")
-    print("3. Mostrar casos por departamento")
-    print("4. Mostrar casos por edades")
-    print("5. Mostrar casos de departamentos por año")
-    print("6. Mostrar casos por tipo de violencia")
-    print("7. Mostrar casos por autoidentificacion etnica")
-    print("8. Mostrar por Acciones preventivas")
-    print("9. Mostrar por Centros mas utilizados")
-    print("0. Exit")
-    opcion =input("Ingrese una opcion: ")
-    if opcion == "1":
-        mostrar_casos_por_anio()
-    elif opcion == "2":
-        mostrar_casos_por_mes()
-    elif opcion == "3":
-        mostrar_casos_por_departamento()
-    elif opcion == "4":
-        mostrar_casos_por_edades()
-    elif opcion == "5":
-        mostrar_casos_por_departamento()
-    elif opcion == "6":
-        mostrar_Casos_por_violencia()
-    elif opcion == "7":  
-        mostrar_casos_por_etnica()
-    elif opcion == "8":  
-        mostrar_por_accionesPreventivas()
-    elif opcion == "9":
-        mostrar_por_centras_masUtilizados()
-    elif opcion == "0":
-        break
-    else:
-        print("Opcion incorrecta. Ingrese nuevamente una opcion")
+def mostrar_estadisticas():
+    while True:
+        print("\n--- Estadísticas ---")
+        print("1. Mostrar casos por año")
+        print("2. Mostrar casos por mes")
+        print("3. Mostrar casos por departamento")
+        print("4. Mostrar casos por edades")
+        print("5. Mostrar casos de departamentos por año")
+        print("6. Mostrar casos por tipo de violencia")
+        print("7. Mostrar casos por autoidentificación étnica")
+        print("8. Mostrar por acciones preventivas")
+        print("9. Mostrar por centros más utilizados")
+        print("0. Volver al menú principal")
+        opcion = input("Ingrese una opción: ")
+
+        if opcion == "1":
+            mostrar_casos_por_anio()
+        elif opcion == "2":
+            mostrar_casos_por_mes()
+        elif opcion == "3":
+            mostrar_casos_por_departamento()
+        elif opcion == "4":
+            mostrar_casos_por_edades()
+        elif opcion == "5":
+            mostrar_departamentos_por_anio()
+        elif opcion == "6":
+            mostrar_Casos_por_violencia()
+        elif opcion == "7":
+            mostrar_casos_por_etnica()
+        elif opcion == "8":
+            mostrar_por_accionesPreventivas()
+        elif opcion == "9":
+            mostrar_por_centras_masUtilizados()
+        elif opcion == "0":
+            break
+        else:
+            print("Opción incorrecta. Ingrese nuevamente una opción.")
+
+def mostrar_todos_los_datos_ordenados():
+    #NOSECOMOPONER LOS DATOS ORDENADOS
+
+def cerrar_programa():
+    print("Cerrando el programa...")
+    
+
+def menu_principal():
+    while True:
+        print("\n--- Menú Principal ---")
+        print("1. Instrucciones del menú")
+        print("2. Mostrar estadísticas")
+        print("3. Mostrar todos los datos ordenados")
+        print("4. Cerrar el programa")
+        opcion = input("Ingrese una opción: ")
+
+        if opcion == "1":
+            # Instrucciones del menú
+            print("¡Bienvenido al programa de estadísticas!")
+            print("Este programa te permite acceder a diferentes estadísticas sobre casos de violencia sexual.")
+            print("Por favor, selecciona la opción deseada del menú.")
+        elif opcion == "2":
+            mostrar_estadisticas()
+        elif opcion == "3":
+            mostrar_todos_los_datos_ordenados()
+        elif opcion == "4":
+            cerrar_programa()
+            break
+        else:
+            print("Opción incorrecta. Ingrese nuevamente una opción.")
+
+menu_principal()
