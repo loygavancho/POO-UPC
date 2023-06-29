@@ -1,3 +1,4 @@
+from tabulate import tabulate
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -433,14 +434,13 @@ def mostrar_estadisticas():
             print("Opción incorrecta. Ingrese nuevamente una opción.")
 
 def mostrar_todos_los_datos_ordenados():
-    def mostrar_todos_los_datos_ordenados():
     print("Primeros 5 datos:")
-    primeros_5 = data.head(5)
-    print(tabulate(primeros_5, headers='keys', tablefmt='grid'))
+        primeros_5 = data.head(5)
+        print(tabulate(primeros_5, headers='keys', tablefmt='grid'))
     
-    print("\nÚltimos 5 datos:")
-    ultimos_5 = data.tail(5)
-    print(tabulate(ultimos_5, headers='keys', tablefmt='grid'))
+        print("\nÚltimos 5 datos:")
+        ultimos_5 = data.tail(5)
+        print(tabulate(ultimos_5, headers='keys', tablefmt='grid'))
 
 def cerrar_programa():
     print("Cerrando el programa...")
