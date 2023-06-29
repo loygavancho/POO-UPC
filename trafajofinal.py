@@ -58,22 +58,14 @@ def mostrar_casos_por_edades():
     plt.show()
 
 def mostrar_departamentos_por_anio():
-    
     año = input("Ingrese el año: ")
-    if int(año) < 2017 or int(año) > 2023:
-        print("Año inválido. Ingrese un año válido de cuatro dígitos.")
-        return
-    departamento = input("Ingrese el departamento: ")           
-    data_filtered = data[
-        (data['Año de los casos'] == int(año)) &
-        
-    ]
-    casos_por_departamento = data_filtered[data_filtered['Departamento']]
-    casos_por_departamento = casos_por_departamento['Departamento'].value_counts()
-    plt.title(f'Departamentos con casos de violencia sexual por anio {año}')
+    data_filtered = data[data['Año de los casos'] == int(año)]
+    casos_por_departamento = data_filtered['Departamento'].value_counts()
+    
+    plt.title(f'Departamentos con casos de violencia sexual en el año {año}')
     casos_por_departamento.plot(kind='pie', figsize=(8, 6), autopct='%1.1f%%')
     plt.ylabel('')
-    plt.legend([departamento], loc='best')
+    plt.legend(casos_por_departamento.index, loc='best')
     plt.show()
              
 def mostrar_Casos_por_violencia():
