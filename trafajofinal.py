@@ -384,7 +384,14 @@ def mostrar_estadisticas():
             print("Opción incorrecta. Ingrese nuevamente una opción.")
 
 def mostrar_todos_los_datos_ordenados():
-    #NOSECOMOPONER LOS DATOS ORDENADOS
+    def mostrar_todos_los_datos_ordenados():
+    print("Primeros 5 datos:")
+    primeros_5 = data.head(5)
+    print(tabulate(primeros_5, headers='keys', tablefmt='grid'))
+    
+    print("\nÚltimos 5 datos:")
+    ultimos_5 = data.tail(5)
+    print(tabulate(ultimos_5, headers='keys', tablefmt='grid'))
 
 def cerrar_programa():
     print("Cerrando el programa...")
@@ -395,7 +402,7 @@ def menu_principal():
         print("\n--- Menú Principal ---")
         print("1. Instrucciones del menú")
         print("2. Mostrar estadísticas")
-        print("3. Mostrar todos los datos ordenados")
+        print("3. Mostrar los datos ordenados")
         print("4. Cerrar el programa")
         opcion = input("Ingrese una opción: ")
 
