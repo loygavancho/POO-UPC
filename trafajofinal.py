@@ -433,6 +433,8 @@ def mostrar_estadisticas():
         else:
             print("Opción incorrecta. Ingrese nuevamente una opción.")
 
+from tabulate import tabulate
+
 def mostrar_todos_los_datos_ordenados():
         print("Primeros 5 datos:")
         primeros_5 = data.head(5)
