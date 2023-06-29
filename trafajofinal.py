@@ -7,20 +7,18 @@ data = pd.read_csv("data1.csv",sep=',',encoding="utf-8") #lee el documento
 # print(data.head())
 def mostrar_casos_por_anio():
     #filtrar datos
-    data_filtered = data[(data['Año de los casos'] >= 2017) & (data['Año de los casos'] <= 2022)]
+    data_filtered = data[(data['Año'] >= 2017) & (data['Año'] <= 2022)]
     #Porcentajes de Año
-    casos_por_anio = data_filtered['Año de los casos'].value_counts().sort_index()
+    casos_por_anio = data_filtered['Año'].value_counts().sort_index()
     porcentajes = casos_por_anio / casos_por_anio.sum() *  100
-    porcentajes = porcentajes.reset_index()
-
-    plt.xlabel('Año')
-    plt.ylabel('Cantidad de casos')
-    plt.title('Cantidad de casos de violencia sexual por Año') #título del grafico
     #Grafico por Año
     casos_por_anio.plot(kind='bar',figsize=(8,6))
     for i, v in enumerate(casos_por_anio):
-        plt.text(i, v + 1, f'{porcentajes["count"][i]:.2f}%', ha='center', color='black')
-    # plt.figure(figsize=(8,6)) #tamanio de la figura
+        plt.text(i, v + 1, f'{porcentajes[i]:.2f}%', ha='center', color='black') #texto a el gráfico
+    plt.figure(figsize=(8,6)) #tamanio de la figura
+    plt.xlabel('Año')
+    plt.ylabel('Cantidad de casos')
+    plt.title('Cantidad de casos de violencia sexual por Año') #título del grafico
     plt.show()
 
 def mostrar_casos_por_mes():
@@ -60,53 +58,22 @@ def mostrar_casos_por_edades():
     plt.show()
 
 def mostrar_departamentos_por_anio():
-    departamentos = {
-        1: "Lima",
-        2: "Madre de Dios",
-        3: "Piura",
-        4: "La Libertad",
-        5: "Ayacucho",
-        6: "San Martín",
-        7: "Huánuco",
-        8: "Puno",
-        9: "Tacna",
-        10: "Loreto",
-        11: "Ucayali",
-        12: "Tumbes",
-        13: "Lambayeque",
-        14: "Amazonas",
-        15: "Ica",
-        16: "Moquegua",
-        17: "Junín",
-        18: "Cusco",
-        19: "Cajamarca",
-        20: "Áncash",
-        21: "Pasco",
-        22: "Huancavelica",
-        23: "Arequipa",
-        24: "Apurímac",
-        25: "Callao"
-    }
     
     año = input("Ingrese el año: ")
     if int(año) < 2017 or int(año) > 2023:
         print("Año inválido. Ingrese un año válido de cuatro dígitos.")
         return
-    departamento = input("Ingrese el departamento (1-25): ")           
-    if int(departamento) in range(1, 26):
-        print("Departamento inválido. Ingrese un número de departamento válido (1-25).")
-        return
-    departamento_label = departamentos.get(int(departamento), "Desconocido")
+    departamento = input("Ingrese el departamento: ")           
     data_filtered = data[
         (data['Año de los casos'] == int(año)) &
-        (data['Departamento'] == departamento_label)
+        
     ]
-    casos_por_departamento = data_filtered[data_filtered['Departamento'] == departamento_label]
+    casos_por_departamento = data_filtered[data_filtered['Departamento']]
     casos_por_departamento = casos_por_departamento['Departamento'].value_counts()
     plt.title(f'Departamentos con casos de violencia sexual por anio {año}')
     casos_por_departamento.plot(kind='pie', figsize=(8, 6), autopct='%1.1f%%')
     plt.ylabel('')
-    plt.legend([departamento_label], loc='best')
+    plt.legend([departamento], loc='best')
     plt.show()
              
 def mostrar_Casos_por_violencia():
