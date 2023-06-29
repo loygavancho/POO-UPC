@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
 data = pd.read_csv("data1.csv",sep=',',encoding="utf-8") #lee el documento
 # print(data)
@@ -58,64 +59,290 @@ def mostrar_casos_por_edades():
     plt.show()
 
 def mostrar_departamentos_por_anio():
-    año = input("Ingrese el  año: ")
-    data_filtered = data[data['Año de los casos'] == int(año)]
-    casos_por_departamento = data_filtered['Departamento'].value_counts()
-    plt.title(f'Departamentos con casos de violencia sexual en el año{año}')
-    casos_por_departamento.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
+    departamentos = {
+        1: "Lima",
+        2: "Madre de Dios",
+        3: "Piura",
+        4: "La Libertad",
+        5: "Ayacucho",
+        6: "San Martín",
+        7: "Huánuco",
+        8: "Puno",
+        9: "Tacna",
+        10: "Loreto",
+        11: "Ucayali",
+        12: "Tumbes",
+        13: "Lambayeque",
+        14: "Amazonas",
+        15: "Ica",
+        16: "Moquegua",
+        17: "Junín",
+        18: "Cusco",
+        19: "Cajamarca",
+        20: "Áncash",
+        21: "Pasco",
+        22: "Huancavelica",
+        23: "Arequipa",
+        24: "Apurímac",
+        25: "Callao"
+    }
+    meses = {
+        1: "enero",
+        2: "febrero",
+        3: "marzo",
+        4: "abril",
+        5: "mayo",
+        6: "junio",
+        7: "julio",
+        8: "agosto",
+        9: "septiembre",
+        10: "octubre",
+        11: "noviembre",
+        12: "diciembre"
+    }
+    año = input("Ingrese el año: ")
+    if int(año) < 2017 or int(año) > 2023:
+        print("Año inválido. Ingrese un año válido de cuatro dígitos.")
+        return
+    
+    mes = input("Ingrese el mes (1-12): ")
+    if int(mes) not in range(1, 13):
+        print("Mes inválido. Ingrese un número de mes válido (1-12).")
+        return
+    departamento = input("Ingrese el departamento (1-25): ")           
+    if int(departamento) in range(1, 26):
+        print("Departamento inválido. Ingrese un número de departamento válido (1-25).")
+        return
+    departamento_label = departamentos.get(int(departamento), "Desconocido")
+    mes_label = meses.get(int(mes), "Desconocido")
+    
+    data_filtered = data[
+        (data['Año de los casos'] == int(año)) &
+        (data['Mes'] == int(mes)) &
+        (data['Departamento'] == departamento_label)
+    ]
+    casos_por_departamento = data_filtered[data_filtered['Departamento'] == departamento_label]
+    casos_por_departamento = casos_por_departamento['Departamento'].value_counts()
+    plt.title(f'Departamentos con casos de violencia sexual en el mes {mes_label}')
+    casos_por_departamento.plot(kind='pie', figsize=(8, 6), autopct='%1.1f%%')
     plt.ylabel('')
-    plt.legend(casos_por_departamento.index, loc='best')
+    plt.legend([departamento_label], loc='best')
     plt.show()
-
-def mostrar_Casos_por_violencia():
-    año = input("Ingrese el  año: ")
-    mes = input("Ingrese el  mes: ")
-    departamento = input("Ingrese el departamento: ")
-    data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    casos_por_tipo_violencia = data_filtered['Tipo de violencia'].value_counts()
-    plt.title(f'Casos de violencia sexual por tipo en {mes}/{año}, {departamento}')
-    casos_por_tipo_violencia.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
-    plt.ylabel('')
-    plt.legend(casos_por_tipo_violencia.index, loc='best') 
-    plt.show()
+             
 
 def mostrar_casos_por_etnica():
-    año = input("Ingrese el  año: ")
-    mes = input("Ingrese el  mes: ")
-    departamento = input("Ingrese el departamento: ")
-    data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    # casos_por_autoidentificacion = data_filtered['Autoidentificación étnica'].value_counts()
+    departamentos = {
+        1: "Lima",
+        2: "Madre de Dios",
+        3: "Piura",
+        4: "La Libertad",
+        5: "Ayacucho",
+        6: "San Martín",
+        7: "Huánuco",
+        8: "Puno",
+        9: "Tacna",
+        10: "Loreto",
+        11: "Ucayali",
+        12: "Tumbes",
+        13: "Lambayeque",
+        14: "Amazonas",
+        15: "Ica",
+        16: "Moquegua",
+        17: "Junín",
+        18: "Cusco",
+        19: "Cajamarca",
+        20: "Áncash",
+        21: "Pasco",
+        22: "Huancavelica",
+        23: "Arequipa",
+        24: "Apurímac",
+        25: "Callao"
+    }
+    meses = {
+        1: "enero",
+        2: "febrero",
+        3: "marzo",
+        4: "abril",
+        5: "mayo",
+        6: "junio",
+        7: "julio",
+        8: "agosto",
+        9: "septiembre",
+        10: "octubre",
+        11: "noviembre",
+        12: "diciembre"
+    }
+    año = input("Ingrese el año: ")
+    if int(año) < 2017 or int(año) > 2023:
+        print("Año inválido. Ingrese un año válido de cuatro dígitos.")
+        return
+    
+    mes = input("Ingrese el mes (1-12): ")
+    if int(mes) not in range(1, 13):
+        print("Mes inválido. Ingrese un número de mes válido (1-12).")
+        return
+    departamento = input("Ingrese el departamento (1-25): ")           
+    if int(departamento) in range(1, 26):
+        print("Departamento inválido. Ingrese un número de departamento válido (1-25).")
+        return
+
+    departamento_label = departamentos.get(int(departamento), "Desconocido")
+    mes_label = meses.get(int(mes), "Desconocido")
+    
+    data_filtered = data[
+        (data['Año de los casos'] == int(año)) &
+        (data['Mes'] == int(mes)) &
+        (data['Departamento'] == departamento_label)
+    ]
     casos_por_autoidentificacion = data_filtered['Autoidentificadores étnicos'].value_counts()
-    plt.title(f'Casos de violencia sexual por autodentificacion etnica en {mes}/{año}, {departamento}')
+    plt.title(f'Casos de violencia sexual por autodentificacion etnica en {mes_label}/{año}, {departamento_label}')
     casos_por_autoidentificacion.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
     plt.ylabel('')
     plt.legend(casos_por_autoidentificacion.index, loc='best') 
     plt.show()
 
 def mostrar_por_accionesPreventivas():
-    año = input("Ingrese el  año: ")
-    mes = input("Ingrese el  mes: ")
-    departamento = input("Ingrese el departamento: ")
-    data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    acciones_preventivas = data_filtered['Acciones preventivas'].value_counts()
-    plt.title(f'Acciones preventivas en casos de violencia sexual en {mes}/{año}, {departamento}')
-    acciones_preventivas.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
-    plt.ylabel('')
-    plt.legend(acciones_preventivas.index, loc='best') 
-    plt.show()
+   departamentos = {
+        1: "Lima",
+        2: "Madre de Dios",
+        3: "Piura",
+        4: "La Libertad",
+        5: "Ayacucho",
+        6: "San Martín",
+        7: "Huánuco",
+        8: "Puno",
+        9: "Tacna",
+        10: "Loreto",
+        11: "Ucayali",
+        12: "Tumbes",
+        13: "Lambayeque",
+        14: "Amazonas",
+        15: "Ica",
+        16: "Moquegua",
+        17: "Junín",
+        18: "Cusco",
+        19: "Cajamarca",
+        20: "Áncash",
+        21: "Pasco",
+        22: "Huancavelica",
+        23: "Arequipa",
+        24: "Apurímac",
+        25: "Callao"
+   }
+   meses = {
+        1: "enero",
+        2: "febrero",
+        3: "marzo",
+        4: "abril",
+        5: "mayo",
+        6: "junio",
+        7: "julio",
+        8: "agosto",
+        9: "septiembre",
+        10: "octubre",
+        11: "noviembre",
+        12: "diciembre"
+   }
+   año = input("Ingrese el año: ")
+   if int(año) < 2017 or int(año) > 2023:
+        print("Año inválido. Ingrese un año válido de cuatro dígitos.")
+        return
+    
+   mes = input("Ingrese el mes (1-12): ")
+   if int(mes) not in range(1, 13):
+        print("Mes inválido. Ingrese un número de mes válido (1-12).")
+        return
+   departamento = input("Ingrese el departamento (1-25): ")           
+   if int(departamento) in range(1, 26):
+        print("Departamento inválido. Ingrese un número de departamento válido (1-25).")
+        return
+
+   departamento_label = departamentos.get(int(departamento), "Desconocido")
+   mes_label = meses.get(int(mes), "Desconocido")
+    
+   data_filtered = data[
+        (data['Año de los casos'] == int(año)) &
+        (data['Mes'] == int(mes)) &
+        (data['Departamento'] == departamento_label)
+   ]
+   acciones_preventivas = data_filtered['Acciones preventivas'].value_counts()
+   plt.title(f'Acciones preventivas en casos de violencia sexual en {mes_label}/{año}, {departamento_label}')
+   acciones_preventivas.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
+   plt.ylabel('')
+   plt.legend(acciones_preventivas.index, loc='best') 
+   plt.show()
 
 def mostrar_por_centras_masUtilizados():
-    año = input("Ingrese el  año: ")
-    mes = input("Ingrese el  mes: ")
-    departamento = input("Ingrese el departamento: ")
-    data_filtered = data[(data['Año de los casos'] == int(año)) & (data['Mes'] == int(mes)) & (data['Departamento'] == departamento)]
-    # centros_mas_utilizados = data_filtered['Centros más utilizados'].value_counts()
+    departamentos = {
+        1: "Lima",
+        2: "Madre de Dios",
+        3: "Piura",
+        4: "La Libertad",
+        5: "Ayacucho",
+        6: "San Martín",
+        7: "Huánuco",
+        8: "Puno",
+        9: "Tacna",
+        10: "Loreto",
+        11: "Ucayali",
+        12: "Tumbes",
+        13: "Lambayeque",
+        14: "Amazonas",
+        15: "Ica",
+        16: "Moquegua",
+        17: "Junín",
+        18: "Cusco",
+        19: "Cajamarca",
+        20: "Áncash",
+        21: "Pasco",
+        22: "Huancavelica",
+        23: "Arequipa",
+        24: "Apurímac",
+        25: "Callao"
+    }
+    meses = {
+        1: "enero",
+        2: "febrero",
+        3: "marzo",
+        4: "abril",
+        5: "mayo",
+        6: "junio",
+        7: "julio",
+        8: "agosto",
+        9: "septiembre",
+        10: "octubre",
+        11: "noviembre",
+        12: "diciembre"
+    }
+    año = input("Ingrese el año: ")
+    if int(año) < 2017 or int(año) > 2023:
+        print("Año inválido. Ingrese un año válido de cuatro dígitos.")
+        return
+    
+    mes = input("Ingrese el mes (1-12): ")
+    if int(mes) not in range(1, 13):
+        print("Mes inválido. Ingrese un número de mes válido (1-12).")
+        return
+    departamento = input("Ingrese el departamento (1-25): ")           
+    if int(departamento) in range(1, 26):
+        print("Departamento inválido. Ingrese un número de departamento válido (1-25).")
+        return
+
+    departamento_label = departamentos.get(int(departamento), "Desconocido")
+    mes_label = meses.get(int(mes), "Desconocido")
+    
+    data_filtered = data[
+        (data['Año de los casos'] == int(año)) &
+        (data['Mes'] == int(mes)) &
+        (data['Departamento'] == departamento_label)
+    ]
     centros_mas_utilizados = data_filtered['Centro utilizado'].value_counts()
-    plt.title(f'Centros mas utilizados en casos de violencia sexual en {mes}/{año}, {departamento}')
+    plt.title(f'Centros mas utilizados en casos de violencia sexual en {mes_label}/{año}, {departamento_label}')
     centros_mas_utilizados.plot(kind='pie', figsize=(8,6), autopct='%1.1f%%')
     plt.ylabel('')
     plt.legend(centros_mas_utilizados.index, loc='best') 
     plt.show()
+
 
 #Menu
 def mostrar_estadisticas():
