@@ -434,7 +434,7 @@ def mostrar_estadisticas():
             print("Opción incorrecta. Ingrese nuevamente una opción.")
 
 def mostrar_todos_los_datos_ordenados():
-    print("Primeros 5 datos:")
+        print("Primeros 5 datos:")
         primeros_5 = data.head(5)
         print(tabulate(primeros_5, headers='keys', tablefmt='grid'))
     
